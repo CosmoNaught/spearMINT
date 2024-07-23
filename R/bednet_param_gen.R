@@ -10,8 +10,8 @@ load_itn_data <- function(file_path, net_type) {
   data <- read.csv(file_path)
   data <- data %>%
     mutate(net_type = net_type) %>%
-    rename(dn0 = ERG_d_ITN0, rn0 = ERG_r_ITN0) %>%
-    select(dn0, rn0, gamman, bioassay_surv, net_type)
+    rename(dn0 = "ERG_d_ITN0", rn0 = "ERG_r_ITN0") %>%
+    select("dn0", "rn0", "gamman", "bioassay_surv", net_type)
   return(data)
 }
 
