@@ -3,7 +3,7 @@ Title: Houses the functions to implement MINT workflow.
 Version: 0.1.0
 Authors@R: c(
     person("Cosmo", "Santoni", email = "cosmo.santoni@imperial.ac.uk", role = c("aut", "cre")))
-Description: Contains the latest open access pathogen data from the Pathogen Epidemiology Review Group (PERG). Tools are available to update pathogen databases with new peer-reviewed data as it becomes available, and to summarise the latest data using tables and figures.
+Description: Contains functions used to implement MINT workflow.
 License: GPL (>= 3)
 Depends:
     R (>= 3.3.0)
