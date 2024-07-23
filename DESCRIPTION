@@ -4,12 +4,11 @@ Version: 0.1.0
 Authors@R: c(
     person("Cosmo", "Santoni", email = "cosmo.santoni@imperial.ac.uk", role = c("aut", "cre")))
 Description: Contains functions used to implement MINT workflow.
-License: GPL (>= 3)
+License: GPL (>= 3) + file LICENSE
 Depends:
     R (>= 3.3.0)
 Imports:
     dplyr,
-    magrittr,
     utils
 Suggests:
     testthat (>= 3.0.0),
