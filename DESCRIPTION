@@ -1,16 +1,14 @@
 Package: spearMINT
-Title: Houses the functions to implement MINT workflow.
+Title: Houses the Functions to Implement MINT Workflow
 Version: 0.1.0
 Authors@R: c(
     person("Cosmo", "Santoni", email = "cosmo.santoni@imperial.ac.uk", role = c("aut", "cre")))
 Description: Contains functions used to implement MINT workflow.
-License: GPL (>= 3)
+License: GPL (>= 3) + file LICENSE
 Depends:
     R (>= 3.3.0)
 Imports:
-    tibble,
-    dplyr,
-    tidyr,
+    dplyr
 Suggests:
     testthat (>= 3.0.0),
 Encoding: UTF-8
