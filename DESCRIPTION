@@ -8,7 +8,9 @@ License: GPL (>= 3)
 Depends:
     R (>= 3.3.0)
 Imports:
-    dplyr
+    dplyr,
+    magrittr,
+    utils
 Suggests:
     testthat (>= 3.0.0),
 Encoding: UTF-8

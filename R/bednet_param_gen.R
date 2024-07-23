@@ -3,7 +3,8 @@
 #' @param file_path The path to the CSV file.
 #' @param net_type The type of net to label the data.
 #' @return A data frame with the loaded and transformed data.
-#' @importFrom dplyr mutate rename select
+#' @importFrom dplyr %>% mutate rename select
+#' @importFrom utils read.csv
 #' @export
 load_itn_data <- function(file_path, net_type) {
   data <- read.csv(file_path)
