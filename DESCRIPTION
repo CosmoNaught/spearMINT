@@ -2,8 +2,7 @@ Package: spearMINT
 Title: Houses the functions to implement MINT workflow.
 Version: 0.1.0
 Authors@R: c(
-    person("Sangeeta", "Bhatia", email = "s.bhatia@imperial.ac.uk", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0001-6525-101X")))
+    person("Cosmo", "Santoni", email = "cosmo.santoni@imperial.ac.uk", role = c("aut", "cre")))
 Description: Contains the latest open access pathogen data from the Pathogen Epidemiology Review Group (PERG). Tools are available to update pathogen databases with new peer-reviewed data as it becomes available, and to summarise the latest data using tables and figures.
 License: GPL (>= 3)
 Depends:
