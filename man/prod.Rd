@@ -4,7 +4,7 @@
 \alias{prod}
 \title{Run Parameter Set Checks}
 \usage{
-prod(start = 1, end = 2, verbose = TRUE, parallel = TRUE)
+prod(start = 1, end = 10000, verbose = TRUE, parallel = TRUE)
 }
 \arguments{
 \item{start}{The starting index of the parameter sets to check (default is 1).}

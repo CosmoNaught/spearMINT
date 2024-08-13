@@ -39,8 +39,8 @@ execute_checks <- function(start, end, parallel) {
   if (parallel) {
     num_cores <- parallel::detectCores() - 1  # Use all but one core
     cl <- parallel::makeCluster(num_cores)
+    on.exit(parallel::stopCluster(cl), add = TRUE)  # Ensure the cluster is stopped even if there's an error
     results <- parallel::parLapply(cl, start:end, check_parameter_set)
-    parallel::stopCluster(cl)
   } else {
     results <- lapply(start:end, check_parameter_set)
   }
@@ -60,7 +60,7 @@ execute_checks <- function(start, end, parallel) {
 #' @return None. This function prints a summary of the results and detailed information if `verbose` is `TRUE`.
 #' 
 #' @export
-prod <- function(start = 1, end = 2, verbose = TRUE, parallel = TRUE) {
+prod <- function(start = 1, end = 10000, verbose = TRUE, parallel = TRUE) {
 
   t0 <- Sys.time()
 
@@ -98,7 +98,7 @@ prod <- function(start = 1, end = 2, verbose = TRUE, parallel = TRUE) {
         }
       }
     }
-    cat(end, "total packets processed in:", elapsed_time, "seconds\n")
+    cat(end - start + 1, "total packets processed in:", elapsed_time, "seconds\n")
   }
 
   # Print the results summary
@@ -110,4 +110,6 @@ prod <- function(start = 1, end = 2, verbose = TRUE, parallel = TRUE) {
   
   cat("Parameter sets leading to errors:", paste(error_parameter_sets, collapse = ", "), "\n")
   
+  # Return the vector of error parameter sets
+  return(error_parameter_sets)
 }
