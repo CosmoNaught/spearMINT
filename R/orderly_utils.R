@@ -109,7 +109,5 @@ prod <- function(start = 1, end = 10000, verbose = TRUE, parallel = TRUE) {
   if (length(error_parameter_sets) == 0) error_parameter_sets = 0 else error_parameter_sets
   
   cat("Parameter sets leading to errors:", paste(error_parameter_sets, collapse = ", "), "\n")
-  
-  # Return the vector of error parameter sets
-  return(error_parameter_sets)
+
 }
