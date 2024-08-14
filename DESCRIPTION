@@ -6,11 +6,11 @@ Authors@R: c(
 Description: Contains functions used to implement MINT workflow.
 License: GPL (>= 3) + file LICENSE
 Depends:
-    R (>= 3.3.0)
+    R (>= 3.3.0),
+    orderly2
 Imports:
     dplyr,
     utils,
-    orderly2
 Suggests:
     knitr,
     rmarkdown,

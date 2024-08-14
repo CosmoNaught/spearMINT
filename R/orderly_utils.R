@@ -6,7 +6,7 @@
 #' @param i An individual parameter set to check.
 #' 
 #' @return A list containing the `parameter_set`, a success flag, and either the `id` or an error message.
-#' 
+#' @importFrom orderly2 orderly_metadata_extract
 #' @keywords internal
 #' @export
 check_parameter_set <- function(i) {
