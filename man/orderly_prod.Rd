@@ -5,17 +5,14 @@
 \title{Run Parameter Set Checks}
 \usage{
 orderly_prod(
-  start = 1,
-  end = 10000,
+  indices = 1:10000,
   verbose = TRUE,
   parallel = TRUE,
   store_output = FALSE
 )
 }
 \arguments{
-\item{start}{The starting index of the parameter sets to check (default is 1).}
-
-\item{end}{The ending index of the parameter sets to check (default is 10,000).}
+\item{indices}{A vector of indices of the parameter sets to check. Default is \code{1:10000}.}
 
 \item{verbose}{Logical. If \code{TRUE}, detailed output of the process is provided (default is \code{TRUE}).}
 
@@ -27,6 +24,6 @@ orderly_prod(
 A list containing the success summary, error summary, and optionally the IDs and error parameter sets if \code{store_output} is \code{TRUE}.
 }
 \description{
-This function runs checks on a range of parameter sets and provides a detailed report on the results.
+This function runs checks on a vector of parameter sets and provides a detailed report on the results.
 It can execute the checks either sequentially or in parallel.
 }

@@ -25,35 +25,34 @@ check_parameter_set <- function(i) {
 
 #' Execute Parameter Set Checks
 #'
-#' This function executes the `check_parameter_set` function for a range of parameter sets, either sequentially or in parallel.
+#' This function executes the `check_parameter_set` function for a vector of parameter sets, either sequentially or in parallel.
 #'
-#' @param start The starting index of the parameter sets to check.
-#' @param end The ending index of the parameter sets to check.
+#' @param indices A vector of indices of the parameter sets to check.
 #' @param parallel Logical. If `TRUE`, the checks are run in parallel using multiple cores; otherwise, they are run sequentially.
 #' 
 #' @return A list of results for each parameter set, including success flags and any errors.
 #' 
 #' @keywords internal
 #' @export
-execute_checks <- function(start, end, parallel) {
+execute_checks <- function(indices, parallel) {
   if (parallel) {
     num_cores <- parallel::detectCores() - 1  # Use all but one core
     cl <- parallel::makeCluster(num_cores)
     on.exit(parallel::stopCluster(cl), add = TRUE)  # Ensure the cluster is stopped even if there's an error
-    results <- parallel::parLapply(cl, start:end, check_parameter_set)
+    results <- parallel::parLapply(cl, indices, check_parameter_set)
   } else {
-    results <- lapply(start:end, check_parameter_set)
+    results <- lapply(indices, check_parameter_set)
   }
   return(results)
 }
 
+
 #' Run Parameter Set Checks
 #'
-#' This function runs checks on a range of parameter sets and provides a detailed report on the results.
+#' This function runs checks on a vector of parameter sets and provides a detailed report on the results.
 #' It can execute the checks either sequentially or in parallel.
 #'
-#' @param start The starting index of the parameter sets to check (default is 1).
-#' @param end The ending index of the parameter sets to check (default is 10,000).
+#' @param indices A vector of indices of the parameter sets to check. Default is `1:10000`.
 #' @param verbose Logical. If `TRUE`, detailed output of the process is provided (default is `TRUE`).
 #' @param parallel Logical. If `TRUE`, the checks are run in parallel using multiple cores; otherwise, they are run sequentially (default is `TRUE`).
 #' @param store_output Logical. If `TRUE`, the function will store the IDs of the successful checks and the parameter sets that encountered errors (default is `FALSE`).
@@ -61,12 +60,12 @@ execute_checks <- function(start, end, parallel) {
 #' @return A list containing the success summary, error summary, and optionally the IDs and error parameter sets if `store_output` is `TRUE`.
 #' 
 #' @export
-orderly_prod <- function(start = 1, end = 10000, verbose = TRUE, parallel = TRUE, store_output = FALSE) {
+orderly_prod <- function(indices = 1:10000, verbose = TRUE, parallel = TRUE, store_output = FALSE) {
 
   t0 <- Sys.time()
 
   # Perform the checks
-  results <- execute_checks(start, end, parallel)
+  results <- execute_checks(indices, parallel)
   
   # Process results
   success_results <- lapply(results, function(x) if (x$success) list(parameter_set = x$parameter_set, id = x$id))
@@ -96,7 +95,7 @@ orderly_prod <- function(start = 1, end = 10000, verbose = TRUE, parallel = TRUE
         cat("parameter_set:", res$parameter_set, "- Error:", res$error, "\n")
       }
     }
-    cat(end - start + 1, "total packets processed in:", elapsed_time, "seconds\n")
+    cat(length(indices), "total packets processed in:", elapsed_time, "seconds\n")
   }
 
   # Print the results summary

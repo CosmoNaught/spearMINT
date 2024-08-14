@@ -4,12 +4,10 @@
 \alias{execute_checks}
 \title{Execute Parameter Set Checks}
 \usage{
-execute_checks(start, end, parallel)
+execute_checks(indices, parallel)
 }
 \arguments{
-\item{start}{The starting index of the parameter sets to check.}
-
-\item{end}{The ending index of the parameter sets to check.}
+\item{indices}{A vector of indices of the parameter sets to check.}
 
 \item{parallel}{Logical. If \code{TRUE}, the checks are run in parallel using multiple cores; otherwise, they are run sequentially.}
 }
@@ -17,6 +15,6 @@ execute_checks(start, end, parallel)
 A list of results for each parameter set, including success flags and any errors.
 }
 \description{
-This function executes the \code{check_parameter_set} function for a range of parameter sets, either sequentially or in parallel.
+This function executes the \code{check_parameter_set} function for a vector of parameter sets, either sequentially or in parallel.
 }
 \keyword{internal}
