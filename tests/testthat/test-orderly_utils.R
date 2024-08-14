@@ -32,7 +32,7 @@ test_that("execute_checks runs in parallel with mock function", {
   expect_true(grepl("mock error", results[[2]]$error))
 })
 
-test_that("prod function processes results correctly with mock function", {
+test_that("orderly_prod function processes results correctly with mock function", {
   mock_results <- lapply(c("success_case", "error_case"), mock_check_parameter_set)
   
   success_count <- sum(sapply(mock_results, function(x) x$success))

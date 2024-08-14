@@ -56,11 +56,12 @@ execute_checks <- function(start, end, parallel) {
 #' @param end The ending index of the parameter sets to check (default is 10,000).
 #' @param verbose Logical. If `TRUE`, detailed output of the process is provided (default is `TRUE`).
 #' @param parallel Logical. If `TRUE`, the checks are run in parallel using multiple cores; otherwise, they are run sequentially (default is `TRUE`).
+#' @param store_output Logical. If `TRUE`, the function will store the IDs of the successful checks and the parameter sets that encountered errors (default is `FALSE`).
 #' 
-#' @return None. This function prints a summary of the results and detailed information if `verbose` is `TRUE`.
+#' @return A list containing the success summary, error summary, and optionally the IDs and error parameter sets if `store_output` is `TRUE`.
 #' 
 #' @export
-prod <- function(start = 1, end = 10000, verbose = TRUE, parallel = TRUE) {
+orderly_prod <- function(start = 1, end = 10000, verbose = TRUE, parallel = TRUE, store_output = FALSE) {
 
   t0 <- Sys.time()
 
@@ -68,34 +69,31 @@ prod <- function(start = 1, end = 10000, verbose = TRUE, parallel = TRUE) {
   results <- execute_checks(start, end, parallel)
   
   # Process results
-  success_count <- sum(sapply(results, function(x) x$success))
-  error_count <- length(results) - success_count
+  success_results <- lapply(results, function(x) if (x$success) list(parameter_set = x$parameter_set, id = x$id))
+  success_results <- Filter(Negate(is.null), success_results)  # Filter out NULL values
   
-  # Extract the parameter sets that led to errors
-  error_parameter_sets <- sapply(results, function(x) if (!x$success) x$parameter_set else NA)
-  error_parameter_sets <- error_parameter_sets[!is.na(error_parameter_sets)]
+  error_results <- lapply(results, function(x) if (!x$success) list(parameter_set = x$parameter_set, error = x$error))
+  error_results <- Filter(Negate(is.null), error_results)  # Filter out NULL values
+
+  success_count <- length(success_results)
+  error_count <- length(error_results)
   
   t1 <- Sys.time()
-
   elapsed_time <- as.numeric(difftime(t1, t0, units = "secs"))
 
   # Verbose output of detailed information
   if (verbose) {
     if (success_count > 0) {
       cat("\nSuccesses:\n")
-      for (res in results) {
-        if (res$success) {
-          cat("parameter_set:", res$parameter_set, "- id:", res$id, "\n")
-        }
+      for (res in success_results) {
+        cat("parameter_set:", res$parameter_set, "- id:", res$id, "\n")
       }
     }
     
     if (error_count > 0) {
       cat("\nErrors:\n")
-      for (res in results) {
-        if (!res$success) {
-          cat("parameter_set:", res$parameter_set, "- Error:", res$error, "\n")
-        }
+      for (res in error_results) {
+        cat("parameter_set:", res$parameter_set, "- Error:", res$error, "\n")
       }
     }
     cat(end - start + 1, "total packets processed in:", elapsed_time, "seconds\n")
@@ -105,9 +103,13 @@ prod <- function(start = 1, end = 10000, verbose = TRUE, parallel = TRUE) {
   cat("Number of successful parameter_set found:", success_count, "\n")
   cat("Number of errors encountered:", error_count, "\n")
   
-  # Print the vector of parameter sets that led to errors
-  if (length(error_parameter_sets) == 0) error_parameter_sets = 0 else error_parameter_sets
-  
-  cat("Parameter sets leading to errors:", paste(error_parameter_sets, collapse = ", "), "\n")
-
+  # Store output if requested
+  if (store_output) {
+    return(list(
+      report_IDs = success_results,
+      error_parameter_set = sapply(error_results, function(x) x$parameter_set)
+    ))
+  } else {
+    invisible(NULL)  # Return nothing if store_output is FALSE
+  }
 }
