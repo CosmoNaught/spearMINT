@@ -3,6 +3,7 @@
 export(check_parameter_set)
 export(combine_itn_data)
 export(execute_checks)
+export(generate_param_name)
 export(load_itn_data)
 export(orderly_prod)
 export(save_itn_data)
