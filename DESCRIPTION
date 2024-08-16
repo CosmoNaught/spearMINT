@@ -8,8 +8,8 @@ License: GPL (>= 3) + file LICENSE
 Depends:
     R (>= 3.3.0),
     orderly2,
-    hipercow
 Imports:
+    hipercow,
     dplyr,
     utils,
     stringr
