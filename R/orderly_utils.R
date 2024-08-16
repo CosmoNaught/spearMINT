@@ -39,6 +39,7 @@ execute_checks <- function(indices, parallel) {
     num_cores <- parallel::detectCores() - 1  # Use all but one core
     cl <- parallel::makeCluster(num_cores)
     on.exit(parallel::stopCluster(cl), add = TRUE)  # Ensure the cluster is stopped even if there's an error
+    parallel::clusterCall(cl, .libPaths, .libPaths())
     results <- parallel::parLapply(cl, indices, check_parameter_set)
   } else {
     results <- lapply(indices, check_parameter_set)
