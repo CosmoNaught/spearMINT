@@ -7,10 +7,12 @@ Description: Contains functions used to implement MINT workflow.
 License: GPL (>= 3) + file LICENSE
 Depends:
     R (>= 3.3.0),
-    orderly2
+    orderly2,
+    hipercow
 Imports:
     dplyr,
     utils,
+    stringr
 Suggests:
     knitr,
     rmarkdown,
