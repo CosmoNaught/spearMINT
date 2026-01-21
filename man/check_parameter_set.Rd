@@ -14,6 +14,6 @@ A list containing the \code{parameter_set}, a success flag, and either the \code
 }
 \description{
 This function checks a single \code{parameter_set} by dynamically constructing a query
-and running it using the \code{orderly2::orderly_metadata_extract} function.
+and running it using the \code{orderly::orderly_metadata_extract} function.
 }
 \keyword{internal}

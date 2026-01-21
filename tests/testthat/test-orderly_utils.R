@@ -3,7 +3,7 @@
 library(testthat)
 library(spearMINT)
 
-# Mock function to simulate orderly_metadata_extract without depending on orderly2 package
+# Mock function to simulate orderly_metadata_extract without depending on orderly package
 mock_check_parameter_set <- function(i) {
   if (i == "success_case") {
     return(list(parameter_set = i, success = TRUE, id = "mock_id"))

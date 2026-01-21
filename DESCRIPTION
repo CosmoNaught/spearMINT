@@ -7,7 +7,7 @@ Description: Contains functions used to implement MINT workflow.
 License: GPL (>= 3) + file LICENSE
 Depends:
     R (>= 3.3.0),
-    orderly2,
+    orderly,
 Imports:
     hipercow,
     dplyr,

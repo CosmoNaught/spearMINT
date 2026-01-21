@@ -1,12 +1,12 @@
 #' Check a Single Parameter Set
 #'
 #' This function checks a single `parameter_set` by dynamically constructing a query 
-#' and running it using the `orderly2::orderly_metadata_extract` function.
+#' and running it using the `orderly::orderly_metadata_extract` function.
 #' 
 #' @param i An individual parameter set to check.
 #' 
 #' @return A list containing the `parameter_set`, a success flag, and either the `id` or an error message.
-#' @importFrom orderly2 orderly_metadata_extract
+#' @importFrom orderly orderly_metadata_extract
 #' @keywords internal
 #' @export
 check_parameter_set <- function(i) {
@@ -14,8 +14,8 @@ check_parameter_set <- function(i) {
     # Dynamically construct the query
     query <- substitute(latest(parameter:parameter_set == val), list(val = i))
     
-    # Run the orderly2 function with the dynamically constructed query
-    result <- orderly2::orderly_metadata_extract(query, name = "simulation_launch")
+    # Run the orderly function with the dynamically constructed query
+    result <- orderly::orderly_metadata_extract(query, name = "simulation_launch")
     
     return(list(parameter_set = i, success = TRUE, id = result$id))
   }, error = function(e) {
