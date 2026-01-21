@@ -18,7 +18,7 @@ SQL clause building, lightweight dependency checks, and batch job wrappers—so 
 - **SQL key filters** — safe WHERE-clause snippets for `parameter_index` / `global_index`
 - **Dependency audit** — scan `src/` for `library()/require()` vs `pkgdepends.txt`
 - **Hipercow integration** — interactive helper to append missing deps & reprovision
-- **Orderly batch checks** — run `orderly2::orderly_metadata_extract()` over indices, with optional parallelism
+- **Orderly batch checks** — run `orderly::orderly_metadata_extract()` over indices, with optional parallelism
 
 ---
 
@@ -38,7 +38,7 @@ devtools::install_github("CosmoNaught/spearMINT")
 - **dplyr**, **stringr** — small data/regex helpers used internally
 - **utils** — base I/O
 - **hipercow** (optional) — provisioning helper
-- **orderly2** (optional) — metadata extraction for batch checks
+- **orderly** (optional) — metadata extraction for batch checks
 - Base R **parallel** — optional parallel execution
 
 ---
@@ -221,7 +221,7 @@ find_missing_packages(src_dir, pkg_file)
 ### Orderly helpers
 
 ```r
-check_parameter_set(i)            # Try orderly2::orderly_metadata_extract(latest(...))
+check_parameter_set(i)            # Try orderly::orderly_metadata_extract(latest(...))
 execute_checks(indices, parallel) # Sequential or parallel over 'indices'
 orderly_prod(indices = 1:10000,
              verbose = TRUE,
